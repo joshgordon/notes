@@ -1,6 +1,8 @@
 #!/bin/bash
 
-mdHead="<html><head><link href="http://notes.joshgordon.net/style.css" rel="stylesheet"></link><title>Directory Listing</title></head><body>" 
+mdHead="<html><head><link href="http://notes.joshgordon.net/style.css" rel="stylesheet"></link><title>"
+
+mdHead2="</title></head><body>" 
 
 mdFoot="</body></html>" 
 
@@ -11,13 +13,15 @@ exclude="index Makefile mkindex style"
 function gen
 { 
 
+    title=${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g'
     #get the directory listing
     dirList=`ls`
 
-    echo $mdHead > index.md
-#    echo >> index.md
+    echo $mdHead $title $mdHead2 > index.md
+    # echo $title >> index.md
+    # echo $mdHead2 >> index.md
 
-    echo \# ${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g' >> index.md
+    echo \#  $title >> index.md
 #    echo >> index.md
 
     #loop over each file/directory and add it to the index. 
