@@ -5,7 +5,7 @@ mdHead="<html><head><link href="http://notes.joshgordon.net/style.css" rel="styl
 mdFoot="</body></html>" 
 
 #patterns to exclude. Anything grep matches will handle this. 
-exclude="index" 
+exclude="index Makefile mkindex style" 
 
 ################################################################################
 function gen
@@ -15,10 +15,10 @@ function gen
     dirList=`ls`
 
     echo $mdHead > index.md
-    echo >> index.md
+#    echo >> index.md
 
-    echo \# ${PWD##*/} >> index.md
-    echo >> index.md
+    echo \# ${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g' >> index.md
+#    echo >> index.md
 
     #loop over each file/directory and add it to the index. 
 
@@ -29,9 +29,17 @@ function gen
 	    gen
 	    cd .. 
 	else
-	    #check for excluded files: 
-	    if !(echo $file | grep $exclude > /dev/null); then
-		htmlFile=`echo $file | sed -e "s/\.md$/.html/"` 
+	    
+	    include=true 
+	
+            #check for excluded files: 
+	    for exclusion in $exclude; do 
+		if !(echo $file | grep "$exclusion" > /dev/null); then
+		    include=false
+		fi
+	    done 
+	    if $include; then
+	    	htmlFile=`echo $file | sed -e "s/\.md$/.html/"` 
 		baseName=${file%%.*} 
 		echo "* [$baseName]($htmlFile)" >>index.md
 	    fi
