@@ -14,8 +14,18 @@ exclude="index Makefile mkIndex style html README.md"
 rootDir=`pwd`
 function gen
 { 
+    if [ -f README.md ]; then
+	if (head -n 1 README.md | grep "#"); then 
+	    title=`head -n 1 README.md`
+	elif (head -n 2 README.md | tail -n 1 | grep "="); then
+	    title=\# `head -n1 README.md`
+	else
+	    title=`echo ${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g'` 
+	fi
 
-    title=`echo ${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g'` 
+    fi
+    
+
     #get the directory listing
     dirList=`ls`
 
