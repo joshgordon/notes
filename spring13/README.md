@@ -1,3 +1,6 @@
+Spring 2013
+===========
+
 In the Spring semester of 2013, I took 4 classes, but only 2 currently have
 notes posted here. 
 
