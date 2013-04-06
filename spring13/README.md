@@ -4,7 +4,7 @@ notes posted here.
 The 4 classes I took were: 
 
 * CMSC 331 (Principles of Programming languages) 
-* CMSC 345 (Software Design & Develop) 
+* CMSC 345 (Software Design & Development) 
 * HIST 102 (Post civil-war) 
 * MATH 251 (Calc III) 
 
