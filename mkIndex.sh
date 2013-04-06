@@ -10,8 +10,20 @@ mdFoot="</body></html>"
 exclude="index Makefile mkIndex style html README.md" 
 
 ################################################################################
-
 rootDir=`pwd`
+rootTitle="" 
+if [ -f README.md ]; then
+    if (head -n 1 README.md | grep "#"); then 
+	rootTitle=`head -n 1 README.md | sed -e 's/#* //'`
+    elif (head -n 2 README.md | tail -n 1 | grep "="); then
+	rootTitle=`head -n 1 README.md`
+    else
+	rootTitle=`echo ${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g'` 
+    fi
+
+fi
+
+
 function gen
 { 
     if [ -f README.md ]; then
@@ -35,7 +47,7 @@ function gen
     #title as H1
     echo \#  $title >> index.md
     
-    echo -n "[root](/) > " >> index.md
+    echo -n "[$rootTitle](/) > " >> index.md
 
     structure=`pwd | sed -e "s#^$rootDir##; s#/# #g"` 
     curPath="" 
