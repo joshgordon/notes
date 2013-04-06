@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mdHead="<html><head><!--<link href="http://notes.joshgordon.net/style.css" rel="stylesheet">--></link><title>"
+mdHead="<html><head><link href="http://notes.joshgordon.net/style.css" rel="stylesheet"></link><title>"
 
 mdHead2="</title></head><body>" 
 
@@ -10,6 +10,8 @@ mdFoot="</body></html>"
 exclude="index Makefile mkIndex style html" 
 
 ################################################################################
+
+rootDir=`pwd`
 function gen
 { 
 
@@ -17,12 +19,24 @@ function gen
     #get the directory listing
     dirList=`ls`
 
+    #title
     echo $mdHead $title $mdHead2 > index.md
-    # echo $title >> index.md
-    # echo $mdHead2 >> index.md
 
+    #title as H1
     echo \#  $title >> index.md
-    echo "* [Parent](../)" >> index.md
+    
+    echo -n "[root](/) > " >> index.md
+
+    structure=`pwd | sed -e "s#^$rootDir##; s#/# #g"` 
+    curPath="" 
+    for folder in $structure; do 
+	curPath=$curPath/$folder
+	echo -n "[$folder]($curPath) > " >> index.md
+    done
+    
+    echo >> index.md
+    echo >> index.md
+
 
     #loop over each file/directory and add it to the index. 
 
