@@ -12,6 +12,9 @@ exclude="index Makefile mkIndex style html README.md"
 ################################################################################
 rootDir=`pwd`
 rootTitle="" 
+folderNames=""
+
+#Find the name of the topmost directory for use in the paths. 
 if [ -f README.md ]; then
     if (head -n 1 README.md | grep "#"); then 
 	rootTitle=`head -n 1 README.md | sed -e 's/#* //'`
@@ -26,6 +29,8 @@ fi
 
 function gen
 { 
+    #Find the title by either using the first line (if it's H1) of Readme or
+    #by looking at the dirname. 
     if [ -f README.md ]; then
 	if (head -n 1 README.md | grep "#"); then 
 	    title=`head -n 1 README.md | sed -e 's/#* //'`
@@ -34,9 +39,9 @@ function gen
 	else
 	    title=`echo ${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g'` 
 	fi
-
+    else
+	title=`echo ${PWD##*/} | sed 's/.*/\L&/; s/[[:graph:]]*/\u&/g'` 
     fi
-    
 
     #get the directory listing
     dirList=`ls`
@@ -47,8 +52,10 @@ function gen
     #title as H1
     echo \#  $title >> index.md
     
+    #Start the path bar. 
     echo -n "[$rootTitle](/) > " >> index.md
-
+    
+    
     structure=`pwd | sed -e "s#^$rootDir##; s#/# #g"` 
     curPath="" 
     for folder in $structure; do 
