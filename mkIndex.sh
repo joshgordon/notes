@@ -63,8 +63,7 @@ function gen
 
 	dirName=$folder
 
-	head $rootDir$curPath/README.md
-
+	#Look at the readme files and get the titles for the path tree. 
 	if [ -f $rootDir$curPath/README.md ]; then
 	    echo BANG
 	    if (head -n 1 $rootDir$curPath/README.md | grep "#"); then 
@@ -74,7 +73,6 @@ function gen
 	    fi
 	fi
 
-	
 	echo -n "[$dirName]($curPath) > " >> index.md
     done
     
@@ -85,11 +83,29 @@ function gen
     #loop over each file/directory and add it to the index. 
 
     for file in $dirList; do 
+
+
+################################################################################
+       #If  this is a folder instaed of a file. 
 	if [ -d $file ]; then 
-	    echo "* [$file]($file)" >> index.md
+
+	    folderName=$file
+	    #Look at the readme files and get the titles for the path tree. 
+	    if [ -f $folderName/README.md ]; then
+		if (head -n 1 $folderName/README.md | grep "#" 2> /dev/null); then 
+		    folderName=`head -n 1 $folderName/README.md | sed -e 's/#* //'`
+		elif (head -n 2 $folderName/README.md | tail -n 1 | grep "=" 2> /dev/null); then
+		    folderName=`head -n 1 $folderName/README.md`
+		fi
+	    fi
+	    
+	    echo "* [$folderName]($file)" >> index.md
 	    cd $file
 	    gen
 	    cd .. 
+
+################################################################################
+	#If it's a file. 
 	else
 	    
 	    include=true 
