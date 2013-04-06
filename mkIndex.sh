@@ -7,7 +7,7 @@ mdHead2="</title></head><body>"
 mdFoot="</body></html>" 
 
 #patterns to exclude. Anything grep matches will handle this. 
-exclude="index Makefile mkIndex style html" 
+exclude="index Makefile mkIndex style html README.md" 
 
 ################################################################################
 
@@ -65,6 +65,18 @@ function gen
 	fi
 
     done
+
+    if [ -f README.md ]; then
+	echo >> index.md
+	if (head -n 1 README.md | grep "#"); then 
+	    tail -n +2 README.md >> index.md
+	elif (head -n 2 README.md | tail -n 1 | grep "="); then
+	    tail -n +3 README.md >> index.md
+	else
+	    cat README.md >> index.md
+	fi
+	echo >> index.md
+    fi
     
     echo $mdFoot >> index.md
 } 
