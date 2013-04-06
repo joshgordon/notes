@@ -3,10 +3,10 @@ notes posted here.
 
 The 4 classes I took were: 
 
-    * CMSC 331 (Principles of Programming languages) 
-    * CMSC 345 (Software Design & Develop) 
-    * HIST 102 (Post civil-war) 
-    * MATH 251 (Calc III) 
+* CMSC 331 (Principles of Programming languages) 
+* CMSC 345 (Software Design & Develop) 
+* HIST 102 (Post civil-war) 
+* MATH 251 (Calc III) 
 
 You will notice an absence of a lot of notes - because a lot of my notes
 through the first half of the semester were taken on actual paper! From
