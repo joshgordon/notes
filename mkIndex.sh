@@ -60,7 +60,22 @@ function gen
     curPath="" 
     for folder in $structure; do 
 	curPath=$curPath/$folder
-	echo -n "[$folder]($curPath) > " >> index.md
+
+	dirName=$folder
+
+	head $rootDir$curPath/README.md
+
+	if [ -f $rootDir$curPath/README.md ]; then
+	    echo BANG
+	    if (head -n 1 $rootDir$curPath/README.md | grep "#"); then 
+		dirName=`head -n 1 $rootDir$curPath/README.md | sed -e 's/#* //'`
+	    elif (head -n 2 $rootDir$curPath/README.md | tail -n 1 | grep "="); then
+		dirName=`head -n 1 $rootDir$curPath/README.md`
+	    fi
+	fi
+
+	
+	echo -n "[$dirName]($curPath) > " >> index.md
     done
     
     echo >> index.md
