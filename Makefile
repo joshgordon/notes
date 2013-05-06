@@ -1,6 +1,6 @@
 build : 
 	./mkIndex.sh 
-	find . -iname "*.md" -exec ./make_markdown {} \; 
+	find . -iname "*.md" -exec ./make_markdown.sh {} \; 
 
 clean : 
 	find . -iname "*.html" -exec rm {} \; 
