@@ -7,7 +7,7 @@ mdHead2="</title></head><body>"
 mdFoot="</body></html>" 
 
 #patterns to exclude. Anything grep matches will handle this. 
-exclude="index Makefile mkIndex style html README.md" 
+exclude="index Makefile mkIndex style html README.md make_markdown.sh" 
 
 ################################################################################
 rootDir=`pwd`
