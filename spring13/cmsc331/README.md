@@ -6,5 +6,5 @@ of many different programming languages - not how to program in them, but
 defining grammars and stuff like that.  
 
 Also, towards the end it covered
-[Scheme](http://en.wikipedia.org/wiki/Scheme_(programming_language)) and
+[Scheme](http://en.wikipedia.org/wiki/Scheme_(programming_language\)) and
 [PERL](http://en.wikipedia.org/wiki/Perl). 
